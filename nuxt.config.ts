@@ -9,8 +9,4 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  components: [
-    { path: "~/src/components", extensions: ["vue"] },
-    { path: "~/src/pages", extensions: ["vue"] },
-  ],
 });
