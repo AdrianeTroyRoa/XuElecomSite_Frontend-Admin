@@ -46,11 +46,10 @@
 <script setup lang="ts">
 // Import the markdown parser
 import { marked } from "marked";
+const route = useRoute();
 
 // Reactive variable for articleTitle
-const articleTitle = ref(
-  "This is the Title",
-);
+const articleTitle = ref(route.query.titles);
 
 function updateArticleTitle(event) {
   articleTitle.value = event.target.innerText;
