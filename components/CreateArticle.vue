@@ -55,7 +55,15 @@
             type="button"
             @click="submitInputs"
           >
-            Go to Editor
+            <NuxtLink
+              :to="{
+                name: 'articles-edit-id',
+                params: { id: 123 },
+                query: { title: articleTitle },
+              }"
+            >
+              Go to Editor
+            </NuxtLink>
           </button>
         </div>
       </form>

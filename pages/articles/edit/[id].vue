@@ -49,7 +49,7 @@ import { marked } from "marked";
 const route = useRoute();
 
 // Reactive variable for articleTitle
-const articleTitle = ref(route.query.titles);
+const articleTitle = ref(route.query.title);
 
 function updateArticleTitle(event) {
   articleTitle.value = event.target.innerText;
