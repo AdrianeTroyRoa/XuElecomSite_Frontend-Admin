@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <div>
     <CreateArticle />
   </div>
