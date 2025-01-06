@@ -1,5 +1,5 @@
 <template>
-  <button class="btn" onclick="my_modal_1.showModal()">open modal</button>
+  <button class="btn" onclick="my_modal_1.showModal()"> + Add New Article</button>
   <dialog class="modal" id="my_modal_1">
     <div class="modal-box">
       <!--Modal close button-->
