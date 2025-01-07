@@ -1,8 +1,5 @@
 <template>
   <Navbar />
-  <div>
-    <CreateArticle />
-  </div>
   <div v-for="(item, key) in someSample">
     <ArticleItem
       :title="item.title"

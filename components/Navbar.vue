@@ -1,6 +1,10 @@
 <template>
+  <!--for margin purposes-->
   <div class="navbar bg-white w-full m-4"></div>
+
+  <!--fixed-positioned navbar-->
   <div class="navbar bg-gray-100 fixed w-full top-0 z-20 p-4">
+    <!--logo-->
     <div class="flex-1">
       <a class="btn btn-ghost hover:bg-gray-100">
         <div column>
@@ -13,14 +17,9 @@
         </div>
       </a>
     </div>
+    <!--Add article button-->
     <div class="flex-2">
-      <a class="btn btn-ghost text-l">Home</a>
-    </div>
-    <div class="flex-2">
-      <a class="btn btn-ghost text-l">Posts</a>
-    </div>
-    <div class="flex-2">
-      <a class="btn btn-ghost text-l">Contacts</a>
+      <CreateArticle />
     </div>
     <div class="flex-none">
       <!--button class="btn btn-square btn-ghost">
