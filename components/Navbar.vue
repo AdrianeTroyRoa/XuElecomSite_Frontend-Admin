@@ -1,10 +1,15 @@
 <template>
+  <div class="navbar bg-white w-full m-4"></div>
   <div class="navbar bg-gray-100 fixed w-full top-0 z-20 p-4">
     <div class="flex-1">
       <a class="btn btn-ghost hover:bg-gray-100">
         <div column>
           <div class="text-xl text-primary font-bold">BOTAR ATENISTA</div>
-          <div class="rounded-full bg-[#FAD60B] p-1 px-12 shadow-black shadow-md font-bold">THINK. ACT. VOTE.</div>
+          <div
+            class="rounded-full bg-[#FAD60B] p-1 px-12 shadow-black shadow-md font-bold"
+          >
+            THINK. ACT. VOTE.
+          </div>
         </div>
       </a>
     </div>
