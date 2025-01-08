@@ -1,11 +1,19 @@
 <template>
   <Navbar />
+  <!-- Add Article Button -->
+  <div class="text-center my-5">
+    <CreateArticle />
+  </div>
   <div v-for="(item, key) in someSample">
     <ArticleItem
       :title="item.title"
       :status="item.status"
       :description="item.description"
     />
+  </div>
+  <!-- Add Article Button -->
+  <div class="text-center my-5">
+    <CreateArticle />
   </div>
 </template>
 <script setup lang="ts">
