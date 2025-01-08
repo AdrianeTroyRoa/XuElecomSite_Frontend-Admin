@@ -13,9 +13,9 @@ export default {
     themes: [
       {
         xuelecom: {
-          primary: "#0E0C40",
+          primary: "#303473",
           secondary: "#F2D649",
-          accent: "#303473",
+          accent: "#0E0C40",
           neutral: "#3d4451",
           "base-100": "#ffffff",
         },
