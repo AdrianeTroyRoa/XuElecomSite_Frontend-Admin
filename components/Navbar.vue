@@ -1,6 +1,6 @@
 <template>
   <!--for margin purposes-->
-  <div class="navbar bg-white w-full m-4"></div>
+  <div class="bg-white w-full my-24"></div>
 
   <!--fixed-positioned navbar-->
   <div class="navbar bg-gray-100 fixed w-full top-0 z-20 p-4">
