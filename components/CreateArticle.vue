@@ -1,5 +1,10 @@
 <template>
-  <button class="btn btn-secondary" onclick="my_modal_1.showModal()"> + Add New Article</button>
+  <button
+    class="btn btn-secondary"
+    onclick="document.getElementById('my_modal_1').showModal()"
+  >
+    + Add New Article
+  </button>
   <dialog class="modal" id="my_modal_1">
     <div class="modal-box">
       <!--Modal close button-->
