@@ -33,8 +33,8 @@
             </div>
           </div>
         </button>
-        <li><a>Sidebar Item 1</a></li>
-        <li><a>Sidebar Item 2</a></li>
+        <li><a class="text-xl font-bold">Articles</a></li>
+        <li><a class="text-xl font-bold">Questions</a></li>
       </ul>
     </div>
   </div>
