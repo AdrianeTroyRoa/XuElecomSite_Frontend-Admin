@@ -1,8 +1,9 @@
 <template>
-  <div className="drawer">
-    <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-    <div className="drawer-content">
-      <label htmlFor="my-drawer" className="btn drawer-button">
+  <!--Something wrong here-->
+  <div class="drawer">
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+      <label htmlFor="my-drawer" class="btn drawer-button">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -16,13 +17,13 @@
       </label>
     </div>
 
-    <div className="drawer-side">
+    <div class="drawer-side">
       <label
         htmlFor="my-drawer"
         aria-label="close sidebar"
-        className="drawer-overlay"
+        class="drawer-overlay"
       ></label>
-      <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+      <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
         <button class="btn btn-ghost hover:bg-base-200 mb-12">
           <div>
             <div class="text-xl text-primary font-bold">BOTAR ATENISTA</div>
@@ -39,3 +40,5 @@
     </div>
   </div>
 </template>
+
+<script></script>
