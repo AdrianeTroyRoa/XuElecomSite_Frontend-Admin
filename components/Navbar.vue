@@ -8,7 +8,7 @@
     <div class="flex-1">
       <Sidebar />
     </div>
-    <div class="flex-1 text-2xl font-bold">Articles</div>
+    <div class="flex-1 text-2xl font-bold">{{ title ?? "" }}</div>
 
     <!-- Logout Button -->
     <div class="flex-none">
@@ -16,3 +16,7 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+  defineProps({title: String})
+</script>

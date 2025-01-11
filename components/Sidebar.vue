@@ -33,8 +33,8 @@
             </div>
           </div>
         </button>
-        <li><a class="text-xl font-bold">Articles</a></li>
-        <li><a class="text-xl font-bold">Questions</a></li>
+        <li><a class="text-xl font-bold" href="/articles">Articles</a></li>
+        <li><a class="text-xl font-bold" href="/questions">Questions</a></li>
       </ul>
     </div>
   </div>
