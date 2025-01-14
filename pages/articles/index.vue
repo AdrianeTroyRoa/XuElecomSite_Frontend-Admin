@@ -1,11 +1,17 @@
 <template>
   <Navbar />
+  <div class="text-center">
+    <CreateArticle />
+  </div>
   <div v-for="(item, key) in someSample">
     <ArticleItem
       :title="item.title"
       :status="item.status"
       :description="item.description"
     />
+  </div>
+  <div class="text-center">
+    <CreateArticle />
   </div>
 </template>
 <script setup lang="ts">
