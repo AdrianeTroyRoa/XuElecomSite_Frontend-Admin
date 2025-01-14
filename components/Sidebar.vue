@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <!-- Hamburger Button -->
-    <div class="fixed top-7 left-4 z-50 flex gap-4">
+    <div class="fixed top-8 left-4 z-50 flex gap-4">
       <button @click="toggleSidebar" class="rounded-md">
         <svg
           xmlns="http://www.w3.org/2000/svg"
