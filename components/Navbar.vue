@@ -3,12 +3,11 @@
   <div class="w-full my-24"></div>
 
   <!--fixed-positioned navbar-->
-  <div class="navbar flex justify-center items-center bg-gray-100 fixed w-full top-0 z-20 p-4">
+  <div class="navbar flex justify-center items-center justify-between bg-gray-100 fixed w-full top-0 z-20 h-24">
     <!-- Sidebar button -->
-    <div class="flex-1">
-      <Sidebar />
+    <div class="flex-none px-8">
+      <Sidebar :title="title" />
     </div>
-    <div class="flex-1 text-2xl font-bold">{{ title ?? "" }}</div>
 
     <!-- Logout Button -->
     <div class="flex-none">

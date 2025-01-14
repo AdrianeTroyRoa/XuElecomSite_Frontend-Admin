@@ -1,5 +1,5 @@
 <template>
-  <Navbar />
+  <Navbar title="Articles"/>
   <div class="text-center">
     <CreateArticle />
   </div>
