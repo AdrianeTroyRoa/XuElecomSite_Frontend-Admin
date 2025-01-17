@@ -1,14 +1,7 @@
 <template>
   <div class="flex p-4">
     <div class="flex-1">
-      <div
-        class="text-4xl font-bold focus:outline-dashed mr-7 focus:p-3"
-        contenteditable="true"
-        @input="updateArticleTitle"
-        spellcheck="true"
-      >
-        {{ articleTitle }}
-      </div>
+      <Sidebar :title="articleTitle"/>
       <div class="ml-4 text-xs">{{ formattedDateToday }}</div>
     </div>
     <button class="btn btn-secondary flex-none" @click="showInputtedContent">
