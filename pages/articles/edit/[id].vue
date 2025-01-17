@@ -1,8 +1,7 @@
 <template>
   <div class="flex p-4">
     <div class="flex-1">
-      <Sidebar :title="articleTitle"/>
-      <div class="ml-4 text-xs">{{ formattedDateToday }}</div>
+      <Sidebar title="Article Editor" />
     </div>
     <button class="btn btn-secondary flex-none" @click="showInputtedContent">
       Save
@@ -10,7 +9,7 @@
   </div>
   <div class="flex flex-col md:flex-row w-full">
     <div class="w-full md:w-1/2 p-4">
-      <div class="text-3xl">Markdown Editor</div>
+      <div class="text-3xl">Markdown</div>
       <hr />
       <br />
       <!-- Input field for markdown -->
@@ -28,7 +27,11 @@
       <hr />
       <br />
       <div class="bg-zinc-100 p-4 w-full h-[calc(100vh-13rem)] overflow-y-auto">
-        <div class="flex align-items-center">
+        <article class="mb-48">
+          <h1 class="text-5xl font-bold">Hello World. This is a title...</h1>
+          <div class="text-xs mt-5">{{ formattedDateToday }}</div>
+        </article>
+        <div class="flex flex-col items-center">
           <article class="prose" v-html="renderMarkdown"></article>
         </div>
       </div>
