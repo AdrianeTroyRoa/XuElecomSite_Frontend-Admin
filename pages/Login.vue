@@ -6,7 +6,7 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
       <img
         class="mx-auto h-20 rounded-full object-cover w-auto"
-        src="https://scontent.fmnl4-6.fna.fbcdn.net/v/t39.30808-6/461315464_122100403958544827_6257173563935218237_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFTY29LmeytmYaWVb2XkGF4NaCNsLlqWE41oI2wuWpYTnrvGX5XhSS0Y0nk0JwtWanj9_6ryGTTNGLKv5W1b-9-&_nc_ohc=fG_XMbxvomsQ7kNvgGPjdJw&_nc_zt=23&_nc_ht=scontent.fmnl4-6.fna&_nc_gid=AZCGWSC8dZ8y0NCPew1lKlT&oh=00_AYDP_SkXiuBN1e2W5hneK926ZfH0iyYG6vfVcfxVJ8IecQ&oe=67843BEC"
+        src="/public/logo.jpg"
         title="XU CSG Elecom"
         alt="XU CSG Elecom"
       />
