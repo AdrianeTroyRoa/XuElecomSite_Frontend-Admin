@@ -11,7 +11,7 @@
           class="font-medium text-indigo-600 hover:text-indigo-500"
           :to="{
             name: 'articles-edit-id',
-            params: { id: 123 },
+            params: { id: id },
             query: { title: title },
           }"
         >
@@ -20,7 +20,7 @@
       </div>
       <div class="mt-4 flex items-center justify-between">
         <img
-          src="https://www.ricoh-imaging.co.jp/english/products/xg-1/ex/img/ex-pic07.jpg"
+          :src="imageLink"
           style="width: 1; height: 1"
         />
       </div>
@@ -36,15 +36,7 @@
       </div>
       <div class="mt-4 flex items-center justify-between">
         <p class="mt-1 text-sm text-gray-500">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum.
+          {{content}}
         </p>
       </div>
     </div>
@@ -56,5 +48,8 @@ defineProps({
   title: String,
   description: String,
   status: Boolean,
+  id: String,
+  imageLink: String,
+  content: String,
 });
 </script>

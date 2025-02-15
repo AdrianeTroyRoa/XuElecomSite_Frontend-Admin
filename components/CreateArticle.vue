@@ -60,15 +60,7 @@
             type="button"
             @click="submitInputs"
           >
-            <NuxtLink
-              :to="{
-                name: 'articles-edit-id',
-                params: { id: 123 },
-                query: { title: articleTitle },
-              }"
-            >
-              Go to Editor
-            </NuxtLink>
+            Go to Editor
           </button>
         </div>
       </form>
@@ -77,13 +69,47 @@
 </template>
 
 <script setup lang="ts">
-console.log("Hello");
+const router = useRouter();
 
 const articleTitle = ref("");
 const imageLink = ref("");
+const uniqueId = ref("");
 
-function submitInputs() {
+//supabase fetching
+const client = useSupabaseClient();
+
+function slugify(title: String) {
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "") // Remove non-alphanumeric characters except spaces and hyphens
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-"); // Remove multiple consecutive hyphens
+}
+
+async function submitInputs() {
   console.log("article title:", articleTitle.value);
   console.log("image link", imageLink.value.replace(/\s+/g, ""));
+  const { data, error } = await client
+    .from("Posts")
+    .insert({
+      title: articleTitle.value,
+      image_link: imageLink.value,
+      slug: slugify(articleTitle.value),
+    })
+    .select().single();
+
+  if (error) console.error("❌ failed to upload post information.");
+  else {
+    console.info("✅ post information uploaded successfully.");
+    uniqueId.value = String(data.id);
+    console.log(data.id);
+
+    router.push({
+      name: "articles-edit-id",
+      params: { id: uniqueId.value },
+      query: { title: articleTitle.value },
+    });
+  }
 }
 </script>

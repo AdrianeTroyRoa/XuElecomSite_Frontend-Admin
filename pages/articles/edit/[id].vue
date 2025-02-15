@@ -28,7 +28,7 @@
       <br />
       <div class="bg-zinc-100 p-4 w-full h-[calc(100vh-13rem)] overflow-y-auto">
         <article class="mb-48">
-          <h1 class="text-5xl font-bold">Hello World. This is a title...</h1>
+          <h1 class="text-5xl font-bold">{{ post.title }}</h1>
           <div class="text-xs mt-5">{{ formattedDateToday }}</div>
         </article>
         <div class="flex flex-col items-center">
@@ -80,47 +80,28 @@ onUnmounted(() => {
   clearInterval(interval); // Clear the interval when the component is destroyed
 });
 
-// Reactive variable to store markdown content
-const markdownContent = ref(`
-# Markdown Basics
+//fetching info from supabase
+const supabase = useSupabaseClient();
+const post = ref({});
 
-## Headers
-You can create headers by using the \`#\` symbol:
-# Heading 1
-## Heading 2
-### Heading 3
+const { data, error } = await supabase
+  .from("Posts")
+  .select()
+  .eq("id", route.params.id)
+  .single();
 
-## Emphasis
-You can emphasize text by making it **bold** or *italic*:
-- **Bold**: \`\*This is bold text\*\`
-- *Italic*: \`\*This is italic text\*\`
-
-## Lists
-You can create ordered and unordered lists:
-- Unordered list:
-  - Item 1
-  - Item 2
-    - Subitem 2.1
-- Ordered list:
-1. First item
-2. Second item
-
-## Links
-To create a link, use the following syntax:
-[OpenAI](https://www.openai.com)
-
-## Images
-To add an image, use the syntax:
-![Alt text](https://cdn.bhdw.net/im/dark-nature-sunset-wallpaper-120990_w635.webp "Image Title")
-
-## Blockquotes
-You can create blockquotes by starting a line with \`>\`:
-> This is a blockquote.
-
-`);
+const markdownContent = ref("");
+if (error) console.error("❌ cannot fetch article");
+else {
+  post.value = data;
+  console.log(data);
+  markdownContent.value = post.value.content;
+}
 
 // Computed property to convert markdown to HTML
-const renderMarkdown = computed(() => marked(markdownContent.value));
+const renderMarkdown = computed(() =>
+  marked(markdownContent.value || "Hello. Error exists."),
+);
 
 function showInputtedContent() {
   console.log(markdownContent.value);
