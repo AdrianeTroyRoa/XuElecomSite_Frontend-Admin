@@ -75,6 +75,36 @@ const articleTitle = ref("");
 const imageLink = ref("");
 const uniqueId = ref("");
 
+const content = `
+# Markdown Basics  
+## Headers You can create headers by using the \`#\` symbol: 
+
+# Heading 1 
+## Heading 2 
+### Heading 3 
+ 
+## Emphasis 
+You can emphasize text by making it **bold** or *italic*: - **Bold**: \`\*This is bold text\*\` - *Italic*: \`\*This is italic text\*\`
+  
+## Lists
+You can create ordered and unordered lists: 
+- Unordered list:   
+  - Item 1   
+  - Item 2     
+    - Subitem 2.1 
+- Ordered list: 
+  1. First item 
+  2. Second item  
+## Links 
+To create a link, use the following syntax: [OpenAI](https://www.openai.com)  
+## Images 
+To add an image, use the syntax: ![San Francisco Airport](https://upload.wikimedia.org/wikipedia/commons/d/d6/San_Francisco_International_Airport_at_night.jpg "San Francisco International Airport")
+  
+## Blockquotes
+You can create blockquotes by starting a line with \`>\`: 
+> This is a blockquote.
+`;
+
 //supabase fetching
 const client = useSupabaseClient();
 
@@ -95,9 +125,11 @@ async function submitInputs() {
     .insert({
       title: articleTitle.value,
       image_link: imageLink.value,
+      content: content,
       slug: slugify(articleTitle.value),
     })
-    .select().single();
+    .select()
+    .single();
 
   if (error) console.error("❌ failed to upload post information.");
   else {
