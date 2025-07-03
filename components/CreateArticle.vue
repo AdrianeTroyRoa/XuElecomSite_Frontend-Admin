@@ -74,6 +74,7 @@ const router = useRouter();
 const articleTitle = ref("");
 const imageLink = ref("");
 const uniqueId = ref("");
+const imageFile = ref(null);
 
 const content = `
 # Markdown Basics  
@@ -120,16 +121,24 @@ function slugify(title: String) {
 async function submitInputs() {
   console.log("article title:", articleTitle.value);
   console.log("image link", imageLink.value.replace(/\s+/g, ""));
-  const { data, error } = await client
-    .from("Posts")
-    .insert({
-      title: articleTitle.value,
-      image_link: imageLink.value,
-      content: content,
-      slug: slugify(articleTitle.value),
-    })
-    .select()
-    .single();
+
+  if (imageLink.value !== "") {
+    const { data, error } = await client
+      .from("Posts")
+      .insert({
+        title: articleTitle.value,
+        image_link: imageLink.value,
+        content: content,
+        slug: slugify(articleTitle.value),
+      })
+      .select()
+      .single();
+  } else if (imageFile.value) {
+    console.log("to have upload feature first");
+  } else {
+    window.alert("No image thumbnail detected.");
+    throw "No image thumbnail detected.";
+  }
 
   if (error) console.error("❌ failed to upload post information.");
   else {
