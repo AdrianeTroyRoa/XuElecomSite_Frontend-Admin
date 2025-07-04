@@ -51,6 +51,7 @@
               id="image"
               accept="image/*"
               className="file-input shadow shadow-outline"
+              @change="handleFile"
             />
           </div>
         </div>
@@ -118,9 +119,23 @@ function slugify(title: String) {
     .replace(/-+/g, "-"); // Remove multiple consecutive hyphens
 }
 
+function handleFile(e: Event) {
+  const target = e.target as HTMLInputElement;
+  const file = target.files?.[0];
+  imageFile.value = file;
+}
+
+function errorCapture(errorMsg) {
+  window.alert(errorMsg + "\nPlease try again.");
+  console.error("❌", errorMsg);
+  throw errorMsg;
+}
+
 async function submitInputs() {
   console.log("article title:", articleTitle.value);
   console.log("image link", imageLink.value.replace(/\s+/g, ""));
+
+  if (articleTitle.value === "") errorCapture("No article title.");
 
   if (imageLink.value !== "") {
     const { data, error } = await client
@@ -133,24 +148,58 @@ async function submitInputs() {
       })
       .select()
       .single();
+    if (error) errorCapture("failed to upload post information.");
+    else {
+      console.info("✅ post information uploaded successfully.");
+      uniqueId.value = String(data.id);
+      console.log(data.id);
+
+      router.push({
+        name: "articles-edit-id",
+        params: { id: uniqueId.value },
+        query: { title: articleTitle.value },
+      });
+    }
   } else if (imageFile.value) {
+    const { data: uploadData, error: uploadError } = await client.storage
+      .from("post-thumbnails")
+      .upload(
+        `${slugify(articleTitle.value)}/${imageFile.value.name}`,
+        imageFile.value,
+        {
+          cacheControl: "3600",
+          upsert: false,
+        },
+      );
+
+    if (uploadError) errorCapture("failed to upload image.");
+
+    const config = useRuntimeConfig();
+    const pathToFile = `${config.public.supabaseUrl}/storage/v1/object/public/${uploadData.fullPath}`;
+    const { data: postData, error: postError } = await client
+      .from("Posts")
+      .insert({
+        title: articleTitle.value,
+        image_link: pathToFile,
+        content: content,
+        slug: slugify(articleTitle.value),
+      })
+      .select()
+      .single();
+
+    if (postError) errorCapture("failed to upload post information.");
+    else {
+      console.info("✅ post information uploaded successfully.");
+      uniqueId.value = String(postData.id);
+      console.log(postData.id);
+
+      router.push({
+        name: "articles-edit-id",
+        params: { id: uniqueId.value },
+        query: { title: articleTitle.value },
+      });
+    }
     console.log("to have upload feature first");
-  } else {
-    window.alert("No image thumbnail detected.");
-    throw "No image thumbnail detected.";
-  }
-
-  if (error) console.error("❌ failed to upload post information.");
-  else {
-    console.info("✅ post information uploaded successfully.");
-    uniqueId.value = String(data.id);
-    console.log(data.id);
-
-    router.push({
-      name: "articles-edit-id",
-      params: { id: uniqueId.value },
-      query: { title: articleTitle.value },
-    });
-  }
+  } else errorCapture("No image thumbnail detected.");
 }
 </script>
