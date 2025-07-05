@@ -18,20 +18,16 @@
   </div>
 </template>
 <script setup lang="ts">
-const theTitle = "Some dick";
-const someSample = [
-  { title: "Hello", status: false, description: "blind-sided" },
-  { title: "Goodbye", status: true, description: "hand-sided" },
-  { title: "Hi again", status: false, description: "head-sided" },
-];
-
 const posts = ref([]);
 
 //supabase fetching
 const client = useSupabaseClient();
 const maxDescLength = 200;
 
-const { data, error } = await client.from("Posts").select();
+const { data, error } = await client
+  .from("Posts")
+  .select()
+  .order("updated_at", { ascending: false });
 
 if (error) {
   console.error(error);
