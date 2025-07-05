@@ -7,9 +7,9 @@
     <ArticleItem
       :title="item.title"
       :status="item.status"
-      :description="item.description"
+      :createdAt="item.dateCreated"
+      :updatedAt="item.dateUpdated"
       :id="item.id"
-      :imageLink="item.image_link"
       :content="item.content"
     />
   </div>
@@ -39,7 +39,8 @@ if (error) {
       post.content.length > maxDescLength
         ? post.content.slice(0, maxDescLength).concat("...")
         : post.content,
-    date: post.created_at,
+    dateCreated: post.created_at,
+    dateUpdated: post.updated_at,
   }));
   ////logging to see number of posts
   console.info("Posts number:", posts.value.length);

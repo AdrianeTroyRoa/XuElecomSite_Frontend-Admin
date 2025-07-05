@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white shadow overflow-hidden sm:rounded-md max-w-3xl mx-auto my-4"
+    class="bg-white border-2 border-black shadow overflow-hidden sm:rounded-md max-w-3xl mx-auto my-4"
   >
     <div class="px-4 py-5 sm:px-6">
       <div class="flex items-center justify-between">
@@ -19,14 +19,8 @@
         </NuxtLink>
       </div>
       <div class="mt-4 flex items-center justify-between">
-        <img
-          :src="imageLink"
-          style="width: 1; height: 1"
-        />
-      </div>
-      <div class="mt-4 flex items-center justify-between">
-        <p class="mt-1 max-w-2xl text-sm text-gray-500">
-          {{ description }}
+        <p class="mt-1 max-w-2xl text-sm font-medium text-gray-500">
+          Date Created: {{ createdAt }}
         </p>
         <p class="text-sm font-medium text-gray-500">
           Status:
@@ -34,9 +28,12 @@
           <span v-else class="text-yellow-600"> Draft </span>
         </p>
       </div>
+      <p class="mt-1 max-w-2xl text-sm font-medium text-gray-500">
+        Date Updated: {{ updatedAt }}
+      </p>
       <div class="mt-4 flex items-center justify-between">
         <p class="mt-1 text-sm text-gray-500">
-          {{content}}
+          {{ content }}
         </p>
       </div>
     </div>
@@ -46,10 +43,10 @@
 <script setup lang="ts">
 defineProps({
   title: String,
-  description: String,
   status: Boolean,
   id: String,
-  imageLink: String,
   content: String,
+  createdAt: String,
+  updatedAt: String,
 });
 </script>
