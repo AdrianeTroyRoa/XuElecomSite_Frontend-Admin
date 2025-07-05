@@ -4,12 +4,14 @@
       <Sidebar title="Article Editor" />
     </div>
     <button
+      v-if="isUpdated"
       class="btn btn-secondary flex-none"
       @click="showInputtedContent"
       onclick="document.getElementById('popup-modal').showModal()"
     >
       Save
     </button>
+    <button v-else class="btn btn-secondary flex-none" disabled>Save</button>
   </div>
   <div class="flex flex-col md:flex-row w-full">
     <div class="w-full md:w-1/2 p-4">
@@ -23,6 +25,7 @@
         rows="10"
         cols="50"
         class="bg-zinc-100 w-full h-[calc(100vh-13rem)] font-mono p-4"
+        @input="thereIsUpdate"
       ></textarea>
     </div>
     <!-- Rendered markdown output -->
@@ -31,10 +34,17 @@
       <hr />
       <br />
       <div class="bg-zinc-100 p-4 w-full h-[calc(100vh-13rem)] overflow-y-auto">
-        <article class="mb-48">
+        <article class="mb-48 text-center">
           <h1 class="text-5xl font-bold">{{ post.title }}</h1>
           <div class="text-xs mt-5">{{ formattedDateToday }}</div>
         </article>
+        <div>
+          <img
+            :src="post.image_link"
+            class="w-full max-w-2xl mx-auto rounded-lg shadow-md object-cover"
+            alt="article picture"
+          />
+        </div>
         <div class="flex flex-col items-center">
           <article class="prose" v-html="renderMarkdown"></article>
         </div>
@@ -112,6 +122,7 @@
 // Import the markdown parser
 import { marked } from "marked";
 const route = useRoute();
+const isUpdated = ref(false);
 
 // Reactive variable for articleTitle
 const articleTitle = ref(route.query.title);
@@ -179,6 +190,11 @@ function showInputtedContent() {
 //saving edits
 const router = useRouter();
 const status = ref(false);
+
+function thereIsUpdate() {
+  if (markdownContent.value !== post.value.content) isUpdated.value = true;
+  else isUpdated.value = false;
+}
 
 function updateStatus(val) {
   status.value = val;
