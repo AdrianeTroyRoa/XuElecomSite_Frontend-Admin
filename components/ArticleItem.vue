@@ -19,8 +19,14 @@
         </NuxtLink>
       </div>
       <div class="mt-4 flex items-center justify-between">
-        <p class="mt-1 max-w-2xl text-sm font-medium text-gray-500">
-          Date Created: {{ createdAt }}
+        <p
+          v-if="createdAt === updatedAt"
+          class="mt-1 max-w-2xl text-sm font-medium text-gray-500"
+        >
+          Date Updated: <i>Not yet updated</i>
+        </p>
+        <p v-else class="mt-1 max-w-2xl text-sm font-medium text-gray-500">
+          Date Updated: {{ formattedDateToday(new Date(updatedAt)) }}
         </p>
         <p class="text-sm font-medium text-gray-500">
           Status:
@@ -29,7 +35,7 @@
         </p>
       </div>
       <p class="mt-1 max-w-2xl text-sm font-medium text-gray-500">
-        Date Updated: {{ updatedAt }}
+        Date Created: {{ formattedDateToday(new Date(createdAt)) }}
       </p>
       <div class="mt-4 flex items-center justify-between">
         <p class="mt-1 text-sm text-gray-500">
@@ -49,4 +55,17 @@ defineProps({
   createdAt: String,
   updatedAt: String,
 });
+
+const dateOptions = {
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: true,
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+};
+
+const formattedDateToday = (dateToFormat) => {
+  return dateToFormat.toLocaleString("en-US", dateOptions);
+};
 </script>
