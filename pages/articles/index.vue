@@ -1,7 +1,7 @@
 <template>
   <Navbar title="Articles" />
   <div>
-    <Searchbar />
+    <Searchbar @click-button="handleSearch" />
   </div>
   <div class="text-center">
     <CreateArticle />
@@ -36,6 +36,19 @@ if (error) {
   console.error(error);
 } else {
   //transferring data values to post
+  syncPostsFromDB(data);
+
+  ////logging to see number of posts
+  console.info("Posts number:", posts.value.length);
+  //logging to see data collected
+  posts.value.forEach((data) => {
+    console.log("title:", data.title);
+    console.log("description:", data.content);
+    console.log("date:", data.date);
+  });
+}
+
+function syncPostsFromDB(data) {
   posts.value = data.map((post) => ({
     ...post,
     content:
@@ -45,13 +58,15 @@ if (error) {
     dateCreated: post.created_at,
     dateUpdated: post.updated_at,
   }));
-  ////logging to see number of posts
-  console.info("Posts number:", posts.value.length);
-  //logging to see data collected
-  posts.value.forEach((data) => {
-    console.log("title:", data.title);
-    console.log("description:", data.content);
-    console.log("date:", data.date);
-  });
+}
+
+function handleSearch(res) {
+  syncPostsFromDB(data);
+
+  const displayPosts = posts.value.filter(
+    (post) => post.title.includes(res) || post.content.includes(res),
+  );
+
+  posts.value = displayPosts;
 }
 </script>
