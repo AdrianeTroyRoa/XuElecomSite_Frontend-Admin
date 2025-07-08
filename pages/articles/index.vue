@@ -6,7 +6,7 @@
   <div class="text-center">
     <CreateArticle />
   </div>
-  <div v-if="posts.length !== 0" v-for="(item, key) in posts">
+  <div v-if="posts.length !== 0" v-for="item in posts">
     <ArticleItem
       :title="item.title"
       :status="item.status"
@@ -14,9 +14,13 @@
       :updatedAt="item.dateUpdated"
       :id="item.id"
       :content="item.content"
+      :titleStartPos="item.start"
+      :titleEndPos="item.end"
     />
   </div>
-  <div v-else class ="text-center mt-24 italic text-xl">No articles match this search.</div>
+  <div v-else class="text-center mt-24 italic text-xl">
+    No articles match this search.
+  </div>
 </template>
 <script setup lang="ts">
 const posts = ref([]);
@@ -62,7 +66,7 @@ function handleSearch(res) {
   syncPostsFromDB(data);
 
   const displayPosts = posts.value.filter(
-    (post) => post.title.includes(res) || post.content.includes(res),
+    (post) => post.title.includes(res) ?? post.content.includes(res),
   );
 
   posts.value = displayPosts;

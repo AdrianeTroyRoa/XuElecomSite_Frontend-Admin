@@ -5,7 +5,17 @@
     <div class="px-4 py-5 sm:px-6">
       <div class="flex items-center justify-between">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
-          {{ title }}
+          <span v-for="(char, index) in title">
+            <span
+              v-if="index >= titleStartPos && index <= titleEndPos"
+              class="bg-primary"
+            >
+              {{ char }}
+            </span>
+            <span v-else>
+              {{ char }}
+            </span>
+          </span>
         </h3>
         <NuxtLink
           class="font-medium text-indigo-600 hover:text-indigo-500"
@@ -54,6 +64,8 @@ defineProps({
   content: String,
   createdAt: String,
   updatedAt: String,
+  titleStartPos: Number,
+  titleEndPos: Number,
 });
 
 const dateOptions = {
