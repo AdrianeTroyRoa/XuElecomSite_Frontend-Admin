@@ -1,11 +1,8 @@
 <template>
-  <button
-    class="btn btn-secondary"
-    onclick="document.getElementById('my_modal_1').showModal()"
-  >
+  <button class="btn btn-secondary" @click="toggleInfoModal">
     + Add New Article
   </button>
-  <dialog class="modal" id="my_modal_1">
+  <dialog class="modal" :open="showInfoModal">
     <div class="modal-box">
       <!--Modal close button-->
       <form method="dialog">
@@ -76,6 +73,7 @@ const articleTitle = ref("");
 const imageLink = ref("");
 const uniqueId = ref("");
 const imageFile = ref(null);
+const showInfoModal = ref(false);
 
 const content = `
 # Markdown Basics  
@@ -201,5 +199,9 @@ async function submitInputs() {
     }
     console.log("to have upload feature first");
   } else errorCapture("No image thumbnail detected.");
+}
+
+function toggleInfoModal() {
+  showInfoModal.value = !showInfoModal.value;
 }
 </script>
