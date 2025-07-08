@@ -4,6 +4,39 @@
     <Searchbar @click-button="handleSearch" />
   </div>
   <div class="text-center">
+    <div class="filter flex gap-2 justify-center mb-5">
+      <input
+        class="btn filter-reset"
+        type="radio"
+        name="metaframeworks"
+        aria-label="All"
+        checked
+        @click="handleCategory('all')"
+      />
+      <input
+        class="btn"
+        type="radio"
+        name="metaframeworks"
+        aria-label="Articles"
+        @click="handleCategory('article')"
+      />
+      <input
+        class="btn"
+        type="radio"
+        name="metaframeworks"
+        aria-label="Memoranda"
+        @click="handleCategory('memorandum')"
+      />
+      <input
+        class="btn"
+        type="radio"
+        name="metaframeworks"
+        aria-label="Resolutions"
+        @click="handleCategory('resolution')"
+      />
+    </div>
+  </div>
+  <div class="text-center">
     <CreateArticle />
   </div>
   <div v-if="posts.length !== 0" v-for="item in posts">
@@ -26,6 +59,8 @@
 </template>
 <script setup lang="ts">
 const posts = ref([]);
+const category = ref("");
+const searchFilter = ref("");
 
 //supabase fetching
 const client = useSupabaseClient();
@@ -65,7 +100,10 @@ function syncPostsFromDB(data) {
 }
 
 function handleSearch(res) {
-  syncPostsFromDB(data);
+  if (category.value !== "all") handleCategory(category.value);
+  else syncPostsFromDB(data);
+
+  searchFilter.value = res;
 
   const displayPosts = posts.value.filter(
     (post) => post.title.includes(res) ?? post.content.includes(res),
@@ -77,5 +115,25 @@ function handleSearch(res) {
     searchCharStartAtContent: post.content.indexOf(res),
     searchLength: res.length,
   }));
+}
+
+function handleCategory(localCategory) {
+  console.log("Filter was clicked:", localCategory);
+  category.value = localCategory;
+
+  syncPostsFromDB(data);
+  let displayPosts = "";
+
+  if (category.value !== "all") {
+    displayPosts = posts.value.filter(
+      (post) =>
+        (post.type.toLowerCase() == category.value &&
+          post.title.includes(searchFilter.value)) ??
+        post.content.includes(searchFilter.value),
+    );
+    posts.value = displayPosts.map((post) => ({
+      ...post,
+    }));
+  } else handleSearch(searchFilter.value);
 }
 </script>
