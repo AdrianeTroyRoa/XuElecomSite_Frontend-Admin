@@ -14,6 +14,7 @@
       :updatedAt="item.dateUpdated"
       :id="item.id"
       :content="item.content"
+      :postType="item.type"
       :titleStartPos="item.searchCharStartAtTitle"
       :contentStartPos="item.searchCharStartAtContent"
       :searchLength="item.searchLength"

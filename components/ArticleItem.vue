@@ -39,6 +39,7 @@
             </svg>
           </button>
 
+          <!--ellipsis menu-->
           <div
             v-if="isOpen"
             class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg z-10"
@@ -68,6 +69,7 @@
             </ul>
           </div>
 
+          <!--Delete modal-->
           <dialog class="modal" :open="showDeleteModal">
             <div class="modal-box">
               <form method="dialog">
@@ -123,7 +125,10 @@
           Date Updated: <i>Not yet updated</i>
         </p>
         <p v-else class="mt-1 max-w-2xl text-sm font-medium text-gray-500">
-          Date Updated: {{ formattedDateToday(new Date(updatedAt)) }}
+          Date Updated:
+          <span class="font-light">{{
+            formattedDateToday(new Date(updatedAt))
+          }}</span>
         </p>
         <p class="text-sm font-medium text-gray-500">
           Status:
@@ -131,9 +136,17 @@
           <span v-else class="text-yellow-600"> Draft </span>
         </p>
       </div>
-      <p class="mt-1 max-w-2xl text-sm font-medium text-gray-500">
-        Date Created: {{ formattedDateToday(new Date(createdAt)) }}
-      </p>
+      <div class="flex items-center justify-between">
+        <p class="max-w-2xl text-sm font-medium text-gray-500">
+          Date Created:
+          <span class="font-light">{{
+            formattedDateToday(new Date(createdAt))
+          }}</span>
+        </p>
+        <p class="text-sm font-medium text-gray-500">
+          Type: <span class="font-light">{{ postType }}</span>
+        </p>
+      </div>
       <div class="mt-4 flex items-center justify-between">
         <p class="mt-1 text-sm text-gray-500">
           {{ content }}
@@ -151,6 +164,7 @@ defineProps({
   content: String,
   createdAt: String,
   updatedAt: String,
+  postType: String,
   titleStartPos: Number,
   contentStartPos: Number,
   searchLength: Number,
