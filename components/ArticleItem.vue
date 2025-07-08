@@ -7,7 +7,10 @@
         <h3 class="text-lg leading-6 font-medium text-gray-900">
           <span v-for="(char, index) in title">
             <span
-              v-if="index >= titleStartPos && index <= titleStartPos + (searchLength - 1)"
+              v-if="
+                index >= titleStartPos &&
+                index <= titleStartPos + (searchLength - 1)
+              "
               class="bg-primary text-white"
             >
               {{ char }}
@@ -17,16 +20,50 @@
             </span>
           </span>
         </h3>
-        <NuxtLink
-          class="font-medium text-indigo-600 hover:text-indigo-500"
-          :to="{
-            name: 'articles-edit-id',
-            params: { id: id },
-            query: { title: title },
-          }"
-        >
-          Edit
-        </NuxtLink>
+        <div class="relative">
+          <button
+            @click="toggleMenu"
+            class="p-2 rounded-full hover:bg-gray-100 focus:outline-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-three-dots-vertical"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+              />
+            </svg>
+          </button>
+
+          <div
+            v-if="isOpen"
+            class="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-md shadow-lg z-10"
+          >
+            <ul class="py-1">
+              <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <NuxtLink
+                  class="font-medium text-indigo-600 hover:text-indigo-500"
+                  :to="{
+                    name: 'articles-edit-id',
+                    params: { id: id },
+                    query: { title: title },
+                  }"
+                >
+                  Edit
+                </NuxtLink>
+              </li>
+              <li
+                class="text-red-500 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              >
+                Delete
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="mt-4 flex items-center justify-between">
         <p
@@ -81,4 +118,10 @@ const dateOptions = {
 const formattedDateToday = (dateToFormat) => {
   return dateToFormat.toLocaleString("en-US", dateOptions);
 };
+
+const isOpen = ref(false);
+
+function toggleMenu() {
+  isOpen.value = !isOpen.value;
+}
 </script>
