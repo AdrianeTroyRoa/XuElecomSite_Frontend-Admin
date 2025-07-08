@@ -14,8 +14,9 @@
       :updatedAt="item.dateUpdated"
       :id="item.id"
       :content="item.content"
-      :titleStartPos="item.start"
-      :titleEndPos="item.end"
+      :titleStartPos="item.searchCharStartAtTitle"
+      :contentStartPos="item.searchCharStartAtContent"
+      :searchLength="item.searchLength"
     />
   </div>
   <div v-else class="text-center mt-24 italic text-xl">
@@ -69,6 +70,11 @@ function handleSearch(res) {
     (post) => post.title.includes(res) ?? post.content.includes(res),
   );
 
-  posts.value = displayPosts;
+  posts.value = displayPosts.map((post) => ({
+    ...post,
+    searchCharStartAtTitle: post.title.indexOf(res),
+    searchCharStartAtContent: post.content.indexOf(res),
+    searchLength: res.length,
+  }));
 }
 </script>

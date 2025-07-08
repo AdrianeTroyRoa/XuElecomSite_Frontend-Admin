@@ -7,8 +7,8 @@
         <h3 class="text-lg leading-6 font-medium text-gray-900">
           <span v-for="(char, index) in title">
             <span
-              v-if="index >= titleStartPos && index <= titleEndPos"
-              class="bg-primary"
+              v-if="index >= titleStartPos && index <= titleStartPos + (searchLength - 1)"
+              class="bg-primary text-white"
             >
               {{ char }}
             </span>
@@ -65,7 +65,8 @@ defineProps({
   createdAt: String,
   updatedAt: String,
   titleStartPos: Number,
-  titleEndPos: Number,
+  contentStartPos: Number,
+  searchLength: Number,
 });
 
 const dateOptions = {
