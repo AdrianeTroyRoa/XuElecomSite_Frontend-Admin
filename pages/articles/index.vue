@@ -6,7 +6,7 @@
   <div class="text-center">
     <CreateArticle />
   </div>
-  <div v-for="(item, key) in posts">
+  <div v-if="posts.length !== 0" v-for="(item, key) in posts">
     <ArticleItem
       :title="item.title"
       :status="item.status"
@@ -16,9 +16,7 @@
       :content="item.content"
     />
   </div>
-  <div class="text-center">
-    <CreateArticle />
-  </div>
+  <div v-else class ="text-center mt-24 italic text-xl">No articles match this search.</div>
 </template>
 <script setup lang="ts">
 const posts = ref([]);
@@ -44,7 +42,7 @@ if (error) {
   posts.value.forEach((data) => {
     console.log("title:", data.title);
     console.log("description:", data.content);
-    console.log("date:", data.date);
+    console.log("date:", data.dateUpdated);
   });
 }
 

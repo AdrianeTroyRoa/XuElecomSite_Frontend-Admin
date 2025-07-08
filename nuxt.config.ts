@@ -7,8 +7,7 @@ export default defineNuxtConfig({
       supabaseUrl: process.env.SUPABASE_URL
     }
   },
-  modules: ["@nuxtjs/supabase"],
-  css: ["~/assets/css/main.css"],
+  modules: ["@nuxtjs/supabase", "@nuxtjs/tailwindcss"],
   postcss: {
     plugins: {
       tailwindcss: {},
