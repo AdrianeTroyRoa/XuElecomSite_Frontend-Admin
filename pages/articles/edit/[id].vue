@@ -75,8 +75,12 @@
               d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
             />
           </svg>
-          <h3 class="mb-5 text-lg font-normal text-gray-500">
-            Save and publish this live?
+          <h3 class="mb-5 text-lg font-bold text-gray-500">
+            Please choose how to save <br />
+            <p class="font-normal italic text-sm">
+              Do note choosing the "Save as Draft" option would make the post
+              inaccessible to the public
+            </p>
           </h3>
           <button
             data-modal-hide="popup-modal"
@@ -84,15 +88,15 @@
             class="text-white bg-green-600 hover:bg-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
             @click="updateStatus(true)"
           >
-            Yes
+            Save and Publish
           </button>
           <button
             data-modal-hide="popup-modal"
             type="button"
-            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900e bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+            class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900e bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-yellow-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
             @click="updateStatus(false)"
           >
-            No
+            Save as Draft
           </button>
         </div>
       </form>
