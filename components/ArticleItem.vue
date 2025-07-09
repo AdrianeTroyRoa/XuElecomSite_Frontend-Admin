@@ -194,7 +194,12 @@ function toggleDeleteModal() {
   showDeleteModal.value = !showDeleteModal.value;
 }
 
-function deletePost(id) {
-  window.alert("About to delete: " + id);
+//Delete functionality
+const supabase = useSupabaseClient();
+const emit = defineEmits(["deleteItem"]);
+
+async function deletePost(id) {
+  const response = await supabase.from("Posts").delete().eq("id", id);
+  emit("deleteItem", id);
 }
 </script>

@@ -51,6 +51,7 @@
       :titleStartPos="item.searchCharStartAtTitle"
       :contentStartPos="item.searchCharStartAtContent"
       :searchLength="item.searchLength"
+      @delete-item="handleDelete"
     />
   </div>
   <div v-else class="text-center mt-24 italic text-xl">
@@ -135,5 +136,15 @@ function handleCategory(localCategory) {
       ...post,
     }));
   } else handleSearch(searchFilter.value);
+}
+
+function handleDelete(res) {
+  const displayPosts = posts.value.filter((post) => !post.id.includes(res));
+
+  posts.value = displayPosts.map((post) => ({
+    ...post,
+  }));
+
+  console.log("Deleted successfully");
 }
 </script>
