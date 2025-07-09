@@ -6,7 +6,7 @@
     <div class="modal-box">
       <!--Modal close button-->
       <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="toggleInfoModal">
           ✕
         </button>
       </form>

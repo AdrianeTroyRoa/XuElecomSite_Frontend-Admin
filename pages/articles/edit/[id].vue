@@ -9,7 +9,7 @@
     <button
       v-if="isUpdated"
       class="btn btn-secondary flex-none"
-      onclick="document.getElementById('popup-modal').showModal()"
+      @click="toggleSaveModal"
     >
       Save
     </button>
@@ -54,11 +54,12 @@
     </div>
   </div>
 
-  <dialog class="modal" id="popup-modal">
+  <dialog class="modal" :open="showSaveModal">
     <div class="modal-box">
       <form method="dialog">
         <button
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          @click="toggleSaveModal()";
         >
           ✕
         </button>
@@ -86,7 +87,6 @@
             </p>
           </h3>
           <button
-            data-modal-hide="popup-modal"
             type="button"
             class="text-white bg-green-600 hover:bg-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
             @click="updateStatus(true)"
@@ -94,7 +94,6 @@
             Save and Publish
           </button>
           <button
-            data-modal-hide="popup-modal"
             type="button"
             class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900e bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-yellow-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
             @click="updateStatus(false)"
@@ -177,6 +176,11 @@ function showInputtedContent() {
 }
 
 //saving edits
+const showSaveModal = ref(false);
+function toggleSaveModal() {
+  showSaveModal.value = !showSaveModal.value;
+}
+
 const router = useRouter();
 
 async function submitEdits() {
@@ -202,7 +206,7 @@ function updateStatus(val) {
   submitEdits();
 }
 const draftStatusColor = "text-yellow-600";
-const liveStatusColor = "text-green-600"
+const liveStatusColor = "text-green-600";
 const statusStyleColor = ref(status.value ? liveStatusColor : draftStatusColor);
 
 function showStatus() {
