@@ -1,7 +1,7 @@
 <template>
   <div class="flex p-4">
     <div class="flex-1">
-      <Sidebar title="Article Editor" />
+      <Sidebar title="Article Editor" @click="toggleUnsavePrompt" />
     </div>
     <div class="p-3 font-bold text-sm">
       Status: <span :class="statusStyleColor">{{ showStatus() }}</span>
@@ -59,7 +59,8 @@
       <form method="dialog">
         <button
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-          @click="toggleSaveModal()";
+          @click="toggleSaveModal()"
+          ;
         >
           ✕
         </button>
@@ -212,5 +213,18 @@ const statusStyleColor = ref(status.value ? liveStatusColor : draftStatusColor);
 function showStatus() {
   statusStyleColor.value = status.value ? liveStatusColor : draftStatusColor;
   return status.value ? "Live" : "Draft";
+}
+
+//Unsave changes prompt
+function toggleUnsavePrompt() {
+  if (isUpdated.value) {
+    if (
+      confirm(
+        "WARNING: Unsaved changes in this post. Proceeding may erase them. Continue?",
+      )
+    ) {
+      router.push("/articles");
+    }
+  }
 }
 </script>
