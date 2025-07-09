@@ -3,6 +3,9 @@
     <div class="flex-1">
       <Sidebar title="Article Editor" />
     </div>
+    <div class="p-3 font-bold text-sm">
+      Status: <span :class="statusStyleColor">{{ showStatus() }}</span>
+    </div>
     <button
       v-if="isUpdated"
       class="btn btn-secondary flex-none"
@@ -175,17 +178,6 @@ function showInputtedContent() {
 
 //saving edits
 const router = useRouter();
-const status = ref(false);
-
-function thereIsUpdate() {
-  if (markdownContent.value !== post.value.content) isUpdated.value = true;
-  else isUpdated.value = false;
-}
-
-function updateStatus(val) {
-  status.value = val;
-  submitEdits();
-}
 
 async function submitEdits() {
   const { data, error } = await supabase
@@ -195,5 +187,26 @@ async function submitEdits() {
   if (error) console.error("❌ failed to edit content");
   else console.info("✅ successfully edited");
   router.push("/articles");
+}
+
+//"SAVE" button and showing post status - live or draft - at top
+const status = ref(post.value.status);
+
+function thereIsUpdate() {
+  isUpdated.value = markdownContent.value !== post.value.content;
+  status.value = !isUpdated.value;
+}
+
+function updateStatus(val) {
+  status.value = val;
+  submitEdits();
+}
+const draftStatusColor = "text-yellow-600";
+const liveStatusColor = "text-green-600"
+const statusStyleColor = ref(status.value ? liveStatusColor : draftStatusColor);
+
+function showStatus() {
+  statusStyleColor.value = status.value ? liveStatusColor : draftStatusColor;
+  return status.value ? "Live" : "Draft";
 }
 </script>
