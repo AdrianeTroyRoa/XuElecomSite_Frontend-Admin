@@ -17,9 +17,7 @@
             stroke-linejoin="round"
           />
         </svg>
-          <div class="font-medium px-2">
-        Go back to post list
-          </div>
+        <div class="font-medium px-2">Go back to post list</div>
       </button>
     </div>
     <div class="p-3 font-bold text-sm">
@@ -129,7 +127,6 @@
 // Import the markdown parser
 import { marked } from "marked";
 const route = useRoute();
-const isUpdated = ref(false);
 
 // Reactive variable for articleTitle
 const articleTitle = ref(route.query.title);
@@ -205,7 +202,7 @@ const router = useRouter();
 async function submitEdits() {
   const { data, error } = await supabase
     .from("Posts")
-    .update({ content: markdownContent.value, status: status.value })
+    .update({ content: markdownContent.value, status: isLive.value })
     .eq("id", route.params.id);
   if (error) console.error("❌ failed to edit content");
   else console.info("✅ successfully edited");
@@ -213,24 +210,25 @@ async function submitEdits() {
 }
 
 //"SAVE" button and showing post status - live or draft - at top
-const status = ref(post.value.status);
+const isUpdated = ref(!post.value.status);
+const isLive = ref(post.value.status);
 
 function thereIsUpdate() {
   isUpdated.value = markdownContent.value !== post.value.content;
-  status.value = !isUpdated.value;
+  isLive.value = !isUpdated.value;
 }
 
 function updateStatus(val) {
-  status.value = val;
+  isLive.value = val;
   submitEdits();
 }
 const draftStatusColor = "text-yellow-600";
 const liveStatusColor = "text-green-600";
-const statusStyleColor = ref(status.value ? liveStatusColor : draftStatusColor);
+const statusStyleColor = ref(isLive.value ? liveStatusColor : draftStatusColor);
 
 function showStatus() {
-  statusStyleColor.value = status.value ? liveStatusColor : draftStatusColor;
-  return status.value ? "Live" : "Draft";
+  statusStyleColor.value = isLive.value ? liveStatusColor : draftStatusColor;
+  return isLive.value ? "Live" : "Draft";
 }
 
 //Unsave changes prompt
