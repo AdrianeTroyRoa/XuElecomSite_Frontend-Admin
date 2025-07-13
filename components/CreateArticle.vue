@@ -6,7 +6,10 @@
     <div class="modal-box">
       <!--Modal close button-->
       <form method="dialog">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" @click="toggleInfoModal">
+        <button
+          class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          @click="toggleInfoModal"
+        >
           ✕
         </button>
       </form>
@@ -26,22 +29,18 @@
             placeholder="Title"
           />
         </div>
+        <div class="flex justify-center my-7">
+          <select class="select" v-model="selectedType">
+            <option disabled value="">Post Type</option>
+            <option>Article</option>
+            <option>Memorandum</option>
+            <option>Resolution</option>
+          </select>
+        </div>
         <div class="mb-6">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
             Thumbnail Image
           </label>
-          <input
-            class="shadow appearance-none input input-bordered rounded w-full p-4 text-gray-700 focus:outline-none focus:shadow-outline"
-            id="image"
-            type="text"
-            v-model="imageLink"
-            placeholder="Image link"
-          />
-          <div class="flex items-center space-x-4">
-            <hr class="flex-grow border-gray-300" />
-            <span class="text-gray-500">or</span>
-            <hr class="flex-grow border-gray-300" />
-          </div>
           <div class="text-center mb-10">
             <input
               type="file"
@@ -70,38 +69,38 @@
 const router = useRouter();
 
 const articleTitle = ref("");
-const imageLink = ref("");
 const uniqueId = ref("");
+const selectedType = ref("");
 const imageFile = ref(null);
 const showInfoModal = ref(false);
 
 const content = `
-# Markdown Basics  
-## Headers You can create headers by using the \`#\` symbol: 
+# Markdown Basics
+## Headers You can create headers by using the \`#\` symbol:
 
-# Heading 1 
-## Heading 2 
-### Heading 3 
- 
-## Emphasis 
+# Heading 1
+## Heading 2
+### Heading 3
+
+## Emphasis
 You can emphasize text by making it **bold** or *italic*: - **Bold**: \`\*This is bold text\*\` - *Italic*: \`\*This is italic text\*\`
-  
+
 ## Lists
-You can create ordered and unordered lists: 
-- Unordered list:   
-  - Item 1   
-  - Item 2     
-    - Subitem 2.1 
-- Ordered list: 
-  1. First item 
-  2. Second item  
-## Links 
-To create a link, use the following syntax: [OpenAI](https://www.openai.com)  
-## Images 
+You can create ordered and unordered lists:
+- Unordered list:
+  - Item 1
+  - Item 2
+    - Subitem 2.1
+- Ordered list:
+  1. First item
+  2. Second item
+## Links
+To create a link, use the following syntax: [OpenAI](https://www.openai.com)
+## Images
 To add an image, use the syntax: ![San Francisco Airport](https://upload.wikimedia.org/wikipedia/commons/d/d6/San_Francisco_International_Airport_at_night.jpg "San Francisco International Airport")
-  
+
 ## Blockquotes
-You can create blockquotes by starting a line with \`>\`: 
+You can create blockquotes by starting a line with \`>\`:
 > This is a blockquote.
 `;
 
@@ -131,34 +130,10 @@ function errorCapture(errorMsg) {
 
 async function submitInputs() {
   console.log("article title:", articleTitle.value);
-  console.log("image link", imageLink.value.replace(/\s+/g, ""));
 
   if (articleTitle.value === "") errorCapture("No article title.");
 
-  if (imageLink.value !== "") {
-    const { data, error } = await client
-      .from("Posts")
-      .insert({
-        title: articleTitle.value,
-        image_link: imageLink.value,
-        content: content,
-        slug: slugify(articleTitle.value),
-      })
-      .select()
-      .single();
-    if (error) errorCapture("failed to upload post information.");
-    else {
-      console.info("✅ post information uploaded successfully.");
-      uniqueId.value = String(data.id);
-      console.log(data.id);
-
-      router.push({
-        name: "articles-edit-id",
-        params: { id: uniqueId.value },
-        query: { title: articleTitle.value },
-      });
-    }
-  } else if (imageFile.value) {
+  if (imageFile.value) {
     const { data: uploadData, error: uploadError } = await client.storage
       .from("post-thumbnails")
       .upload(
@@ -179,6 +154,7 @@ async function submitInputs() {
       .insert({
         title: articleTitle.value,
         image_link: pathToFile,
+        type: selectedType.value,
         content: content,
         slug: slugify(articleTitle.value),
       })
