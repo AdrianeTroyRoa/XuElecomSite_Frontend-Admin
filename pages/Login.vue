@@ -125,6 +125,7 @@ async function signInWPassword() {
   });
   if (error) {
     console.error("an error has occured:", error.message);
+    window.alert("Login Failed: " + error.message);
   } else {
     console.info("✅ user logged in");
     router.push("/");
