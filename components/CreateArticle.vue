@@ -16,10 +16,10 @@
 
       <!--The form to gather initial article info-->
       <form class="px-8 pt-6 pb-8 mb-4 mt-5 w-full max-w-lg">
-        <div class="text-4xl text-center mb-8">Compose New Article</div>
+        <div class="text-4xl text-center mb-8">Compose New Post</div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
-            Article Title
+            Title
           </label>
           <input
             class="shadow appearance-none input input-bordered rounded w-full p-4 text-gray-700 focus:outline-none focus:shadow-outline"
@@ -42,7 +42,7 @@
         </div>
         <div class="mb-6">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="image">
-            Thumbnail Image
+            Thumbnail
           </label>
           <div class="text-center mb-10">
             <input
