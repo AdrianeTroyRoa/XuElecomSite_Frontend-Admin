@@ -60,7 +60,7 @@
 </template>
 <script setup lang="ts">
 const posts = ref([]);
-const category = ref("");
+const category = ref("all");
 const searchFilter = ref("");
 
 //supabase fetching
@@ -101,10 +101,10 @@ function syncPostsFromDB(data) {
 }
 
 function handleSearch(res) {
+  searchFilter.value = res;
+
   if (category.value !== "all") handleCategory(category.value);
   else syncPostsFromDB(data);
-
-  searchFilter.value = res;
 
   const displayPosts = posts.value.filter(
     (post) => post.title.includes(res) ?? post.content.includes(res),
@@ -134,6 +134,9 @@ function handleCategory(localCategory) {
     );
     posts.value = displayPosts.map((post) => ({
       ...post,
+      searchCharStartAtTitle: post.title.indexOf(searchFilter.value),
+      searchCharStartAtContent: post.content.indexOf(searchFilter.value),
+      searchLength: searchFilter.value.length,
     }));
   } else handleSearch(searchFilter.value);
 }
