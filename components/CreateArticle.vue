@@ -29,8 +29,11 @@
             placeholder="Title"
           />
         </div>
-        <div class="flex justify-center my-7">
-          <select class="select" v-model="selectedType">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="post-type">
+            Type
+          </label>
+          <select class="shadow appearance-none select rounded w-full focus:outline-none focus:shadow-outline" id="post-type" v-model="selectedType">
             <option disabled value="">Post Type</option>
             <option>Article</option>
             <option>Memorandum</option>
